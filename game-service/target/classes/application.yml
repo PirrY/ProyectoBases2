@@ -6,7 +6,7 @@ spring:
     name: game-service
   data:
     mongodb:
-      uri: mongodb://mongodb:27017/catalogoJuegos
+      uri: mongodb://admin:password123@mongodb:27017/catalogoJuegos?authSource=admin
       
 logging:
   level:

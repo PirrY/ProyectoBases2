@@ -6,6 +6,9 @@ import com.gamestore.game.repository.GameRepository;
 import com.gamestore.game.repository.ConsultationRepository;
 import com.gamestore.game.dto.GameRankingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +21,9 @@ public class GameService {
     
     @Autowired
     private ConsultationRepository consultationRepository;
+    
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     public List<Game> getAllGames() {
         return gameRepository.findAll();
@@ -63,23 +69,21 @@ public class GameService {
     }
 
     public List<GameRankingResponse> getGameRanking() {
-        List<Object> rawResults = consultationRepository.getGameRanking();
-        return rawResults.stream()
+        Aggregation aggregation = Aggregation.newAggregation(
+            Aggregation.group("gameName").count().as("consultationCount"),
+            Aggregation.sort(org.springframework.data.domain.Sort.Direction.DESC, "consultationCount"),
+            Aggregation.project("consultationCount").and("gameName").previousOperation()
+        );
+        
+        AggregationResults<Map> results = mongoTemplate.aggregate(
+            aggregation, "consultas_juegos", Map.class
+        );
+        
+        return results.getMappedResults().stream()
             .map(result -> {
-                if (result instanceof org.bson.Document) {
-                    org.bson.Document doc = (org.bson.Document) result;
-                    return new GameRankingResponse(
-                        doc.getString("gameName"),
-                        doc.getInteger("consultationCount").longValue()
-                    );
-                } else {
-                    @SuppressWarnings("unchecked")
-                    Map<String, Object> map = (Map<String, Object>) result;
-                    return new GameRankingResponse(
-                        (String) map.get("gameName"),
-                        ((Number) map.get("consultationCount")).longValue()
-                    );
-                }
+                String gameName = (String) result.get("gameName");
+                Integer count = (Integer) result.get("consultationCount");
+                return new GameRankingResponse(gameName, count.longValue());
             })
             .collect(Collectors.toList());
     }
