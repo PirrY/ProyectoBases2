@@ -4,13 +4,13 @@ Aplicación completa para gestionar un catálogo de videojuegos con Angular Fron
 
 ## Características
 
-- ✅ **Agregar videojuegos** (nombre, género, plataforma, precio, stock)
-- ✅ **Listar todos los videojuegos**
-- ✅ **Buscar videojuegos por nombre**
-- ✅ **Eliminar videojuegos**
-- ✅ **Ranking de juegos más consultados** (usando agregación MongoDB)
-- ✅ **API REST** completa
-- ✅ **Dockerizado** para fácil despliegue
+-  **Agregar videojuegos** (nombre, género, plataforma, precio, stock)
+-  **Listar todos los videojuegos**
+-  **Buscar videojuegos por nombre**
+-  **Eliminar videojuegos**
+-  **Ranking de juegos más consultados** (usando agregación MongoDB)
+-  **API REST** completa
+-  **Dockerizado** para fácil despliegue
 
 ## Tecnologías
 
