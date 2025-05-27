@@ -1,0 +1,8 @@
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/entity/Consultation.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/repository/GameRepository.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/service/GameService.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/controller/GameController.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/repository/ConsultationRepository.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/GameServiceApplication.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/entity/Game.java
+/home/pier/Documents/Bases2/game-service/src/main/java/com/gamestore/game/dto/GameRankingResponse.java

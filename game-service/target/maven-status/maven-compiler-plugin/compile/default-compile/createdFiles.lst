@@ -1,0 +1,8 @@
+com/gamestore/game/entity/Consultation.class
+com/gamestore/game/repository/GameRepository.class
+com/gamestore/game/entity/Game.class
+com/gamestore/game/service/GameService.class
+com/gamestore/game/GameServiceApplication.class
+com/gamestore/game/dto/GameRankingResponse.class
+com/gamestore/game/repository/ConsultationRepository.class
+com/gamestore/game/controller/GameController.class
