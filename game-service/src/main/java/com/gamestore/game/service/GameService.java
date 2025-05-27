@@ -7,11 +7,8 @@ import com.gamestore.game.repository.ConsultationRepository;
 import com.gamestore.game.dto.GameRankingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -69,23 +66,28 @@ public class GameService {
     }
 
     public List<GameRankingResponse> getGameRanking() {
-        Aggregation aggregation = Aggregation.newAggregation(
-            Aggregation.group("gameName").count().as("consultationCount"),
-            Aggregation.sort(org.springframework.data.domain.Sort.Direction.DESC, "consultationCount"),
-            Aggregation.project("consultationCount").and("gameName").previousOperation()
-        );
+        List<Consultation> allConsultations = consultationRepository.findAll();
         
-        AggregationResults<Map> results = mongoTemplate.aggregate(
-            aggregation, "consultas_juegos", Map.class
-        );
+        List<GameRankingResponse> gameList = new ArrayList<>();
+        for (Consultation consultation : allConsultations) {
+            gameList.add(new GameRankingResponse(consultation.getGameName(), 1L));
+        }
         
-        return results.getMappedResults().stream()
-            .map(result -> {
-                String gameName = (String) result.get("gameName");
-                Integer count = (Integer) result.get("consultationCount");
-                return new GameRankingResponse(gameName, count.longValue());
-            })
-            .collect(Collectors.toList());
+        for (int i = 0; i < gameList.size(); i++) {
+            GameRankingResponse current = gameList.get(i);
+            for (int j = i + 1; j < gameList.size(); j++) {
+                GameRankingResponse other = gameList.get(j);
+                if (current.getGameName().equals(other.getGameName())) {
+                    current.setConsultationCount(current.getConsultationCount() + 1);
+                    gameList.remove(j);
+                    j--;
+                }
+            }
+        }
+        
+        gameList.sort((a, b) -> Long.compare(b.getConsultationCount(), a.getConsultationCount()));
+        
+        return gameList;
     }
 
     public List<Game> getGamesByGenre(String genre) {

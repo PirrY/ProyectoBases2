@@ -51,17 +51,6 @@ import { RouterLink } from '@angular/router';
             <a routerLink="/ranking" class="btn btn-primary mt-auto">Ranking</a>
           </div>
         </div>
-
-        <div class="bg-primary-50 p-6 rounded-lg border border-primary-100">
-          <h2 class="text-xl font-semibold text-primary-800 mb-3">Características principales</h2>
-          <ul class="list-disc list-inside text-left">
-            <li class="mb-2">Insertar nuevos videojuegos con nombre, género, plataforma, precio y stock</li>
-            <li class="mb-2">Listar todos los videojuegos registrados con todos sus detalles</li>
-            <li class="mb-2">Buscar videojuegos por nombre con registro automático de consultas</li>
-            <li class="mb-2">Eliminar videojuegos del catálogo</li>
-            <li>Ver ranking de juegos más consultados mediante análisis MapReduce</li>
-          </ul>
-        </div>
       </div>
     </div>
   `

@@ -76,15 +76,6 @@ import { GameRanking } from '../../models/game-ranking.model';
               </tbody>
             </table>
           </div>
-          
-          <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <h3 class="text-lg font-semibold mb-2">Acerca del ranking</h3>
-            <p class="text-sm text-gray-600">
-              Este ranking muestra los juegos más consultados en la aplicación. La información es procesada
-              utilizando MapReduce sobre la colección de consultas realizadas a juegos específicos. La 
-              popularidad se calcula en base al número de consultas en relación al juego más consultado.
-            </p>
-          </div>
         </div>
       </div>
     </div>
